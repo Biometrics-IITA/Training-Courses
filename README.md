@@ -9,6 +9,6 @@ In this course, we will cover topics such as:
 4. Logistics Regression
 
 # Dataset
-The dataset used in this course can be found here.
+The <a href="https://github.com/Biometrics-IITA/datasets" >dataset</a> used in this course are 
 
 
