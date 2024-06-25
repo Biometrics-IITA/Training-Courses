@@ -9,7 +9,7 @@ In this course, we will cover topics such as:
 4. Logistics Regression
 
 # Dataset
-The  <a href="https://github.com/Biometrics-IITA/datasets" >dataset</a> used  for this courses are from the agridat package in R.
+The  <a href="https://github.com/Biometrics-IITA/datasets" >dataset</a> used  for this courses are from the agricultural datasets (agridat) package in R. This is an agricultural dataset computed over time. 
 
 # Methods
 
