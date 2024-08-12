@@ -4,8 +4,8 @@ Analysis of data is a vital part of any research. To get the desired information
 # Dataset
 The  <a href="https://github.com/Biometrics-IITA/datasets" >dataset</a> used  for this courses are from the agricultural datasets (agridat) package in R. This is an agricultural dataset computed over time. 
 
-# Course Outline
-In this course, we will cover topics such as: 
+# Training Outline
+In this training, we will cover topics such as: 
 1. Linear Regression
 2. Logistic Regression
 3. Multivariate Analysis
