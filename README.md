@@ -7,9 +7,12 @@ The  <a href="https://github.com/Biometrics-IITA/datasets" >dataset</a> used  fo
 # Course Outline
 In this course, we will cover topics such as: 
 1. Linear Regression
-2. Multivariate Analysis
-3. Design of Experiment
-4. Logistics Regression
+2. Logistic Regression
+3. Multivariate Analysis
+4. Design of Experiment
+5. Models - Anova
+6. Data Wrangling
+7. Introduction to Machine learning
 
 
 # Reference
