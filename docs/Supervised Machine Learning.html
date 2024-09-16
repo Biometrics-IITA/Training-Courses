@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title> Supervised Machine Learning </title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Supervised Machine Learning_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Supervised Machine Learning_files/libs/quarto-html/quarto.js"></script>
+<script src="Supervised Machine Learning_files/libs/quarto-html/popper.min.js"></script>
+<script src="Supervised Machine Learning_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Supervised Machine Learning_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Supervised Machine Learning_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Supervised Machine Learning_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Supervised Machine Learning_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Supervised Machine Learning_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Supervised Machine Learning_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="assets/rany_style.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Outline</h2>
+   
+  <ul>
+  <li><a href="#supervised-learning" id="toc-supervised-learning" class="nav-link active" data-scroll-target="#supervised-learning"><span style="color: #234F1E;"><strong>Supervised Learning</strong></span></a>
+  <ul class="collapse">
+  <li><a href="#regression-use-case" id="toc-regression-use-case" class="nav-link" data-scroll-target="#regression-use-case"><span style="color: #2C6D26;"><strong>Regression Use Case</strong></span></a>
+  <ul class="collapse">
+  <li><a href="#step-1---data-import" id="toc-step-1---data-import" class="nav-link" data-scroll-target="#step-1---data-import"><strong>STEP 1 - Data Import</strong></a></li>
+  <li><a href="#step-2---data-pre-processing-eda" id="toc-step-2---data-pre-processing-eda" class="nav-link" data-scroll-target="#step-2---data-pre-processing-eda"><strong>STEP 2 - Data Pre-processing &amp; EDA</strong></a></li>
+  <li><a href="#step-3---data-partition-into-training-testing-datasets" id="toc-step-3---data-partition-into-training-testing-datasets" class="nav-link" data-scroll-target="#step-3---data-partition-into-training-testing-datasets"><strong>STEP 3 - Data partition into training &amp; testing datasets</strong></a></li>
+  <li><a href="#step-4---build-the-model" id="toc-step-4---build-the-model" class="nav-link" data-scroll-target="#step-4---build-the-model"><strong>STEP 4 - Build the Model</strong></a></li>
+  <li><a href="#step-5---model-performance-evaluation" id="toc-step-5---model-performance-evaluation" class="nav-link" data-scroll-target="#step-5---model-performance-evaluation"><strong>STEP 5 - Model Performance Evaluation</strong></a></li>
+  </ul></li>
+  <li><a href="#classification-used-case" id="toc-classification-used-case" class="nav-link" data-scroll-target="#classification-used-case"><span style="color: #2C6D26;"><strong>Classification Used Case</strong></span></a>
+  <ul class="collapse">
+  <li><a href="#step-1---data-import-1" id="toc-step-1---data-import-1" class="nav-link" data-scroll-target="#step-1---data-import-1"><strong>STEP 1 - Data Import</strong></a></li>
+  <li><a href="#step-2---data-preprocessing" id="toc-step-2---data-preprocessing" class="nav-link" data-scroll-target="#step-2---data-preprocessing"><strong>Step 2 - Data Preprocessing</strong></a></li>
+  <li><a href="#step-3---data-partition-into-training-and-testing-datasets" id="toc-step-3---data-partition-into-training-and-testing-datasets" class="nav-link" data-scroll-target="#step-3---data-partition-into-training-and-testing-datasets"><strong>Step 3 - Data partition into training and testing datasets</strong></a></li>
+  <li><a href="#step-4---build-the-model-1" id="toc-step-4---build-the-model-1" class="nav-link" data-scroll-target="#step-4---build-the-model-1"><strong>Step 4 - Build the model</strong></a></li>
+  <li><a href="#step-5---evaluate-model-parameter" id="toc-step-5---evaluate-model-parameter" class="nav-link" data-scroll-target="#step-5---evaluate-model-parameter"><strong>Step 5 - Evaluate Model Parameter</strong></a></li>
+  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation">Explanation:</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><p style="color:black,text-align:center"><br>
+Supervised Machine Learning<br>
+</p></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><font color="#ff6600"><b>Biometrics Unit</b></font> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <font color="#ff6600"><b>International Institute of Tropical Agriculture (IITA)</b></font>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="supervised-learning" class="level1">
+<h1><span style="color: #234F1E;"><strong>Supervised Learning</strong></span></h1>
+<p>In supervised learning, the algorithm is trained using a dataset where each input is matched with the corresponding output. This allows the model to learn how to predict the output for new, unseen inputs. This approach is commonly applied to tasks like classification, regression, and object detection.</p>
+<p>In supervised learning, the machine learning algorithm learns from labeled data. Labeled data is data that has been tagged with a correct answer or classification. In supervised learning, the model learns from labeled examples (input-output pairs). It predicts outputs for new inputs. Classification and regression are common tasks.</p>
+<p><img src="images/Supervised-learning.png" class="img-fluid" style="width:50.0%"></p>
+<p>Source:geeks for geeks</p>
+<p><strong>Examples</strong></p>
+<p>Here are some examples of supervised learning:</p>
+<ul>
+<li><strong>Regression</strong></li>
+<li><strong>Classification</strong></li>
+<li><strong>Object detection</strong></li>
+<li><strong>Spam detection</strong></li>
+<li><strong>Predictive analytics</strong></li>
+<li><strong>Medical diagnosis</strong></li>
+<li><strong>Speech recognition</strong></li>
+<li><strong>Dimensional Reduction</strong></li>
+</ul>
+<section id="regression-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="regression-use-case"><span style="color: #2C6D26;"><strong>Regression Use Case</strong></span></h2>
+<p>Let’s consider the <code>Honey.Wildflower.csv</code> dataset (13,016 records), this is a dataset in the public domain (Food science) with the following variables:</p>
+<ul>
+<li><strong>CS (Color Score):</strong> Represents the color score of the honey sample, ranging from 1.0 to 10.0.</li>
+<li><strong>Density:</strong> Represents the density of the honey sample in grams per cubic centimeter ranging from 1.21 to 1.86.</li>
+<li><strong>WC (Water Content):</strong> Represents the water content in the honey sample, ranging from 12.0% to 25.0%.</li>
+<li><strong>pH:</strong> Represents the pH level of the honey sample, ranging from 2.50 to 7.50.</li>
+<li><strong>EC (Electrical Conductivity):</strong> Represents the electrical conductivity of the honey sample in milli Siemens per centimeter.</li>
+<li><strong>F (Fructose Level):</strong> Represents the fructose level of the honey sample, ranging from 20 to 50.</li>
+<li><strong>G (Glucose Level):</strong> Represents the glucose level of the honey sample, ranging from 20 to 45.</li>
+<li><strong>Pollen_analysis:</strong> Represents the floral source of the honey sample.</li>
+<li><strong>Purity:</strong> Represents the purity of the honey sample, ranging from 0.01 to 1.00.</li>
+<li><strong>Price:</strong> The calculated price of the honey.</li>
+</ul>
+<section id="step-1---data-import" class="level3">
+<h3 class="anchored" data-anchor-id="step-1---data-import"><strong>STEP 1 - Data Import</strong></h3>
+<p>The objective of this exercise is to develop a model that predicts the price of honey</p>
+<p>Let’s follow our 4 steps to address the objective:</p>
+<ul>
+<li>STEP 1 - Data pre-processing</li>
+<li>STEP 2 - Train the Model</li>
+<li>STEP 3 - Evaluate the Model</li>
+<li>STEP 4 - Test the Model</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#for data import &amp; wrangling </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret) <span class="co">#for model performance evaluation </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Honey.Wildflower.csv"</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>)) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13,016 × 11
+      CS Density    WC    pH    EC     F     G Pollen_analysis Viscosity Purity
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;  &lt;dbl&gt;
+ 1  3       1.53  13.6  6.86  0.72  42.5  29.0 Wildflower          2675.   0.66
+ 2  8.79    1.6   14.5  3.11  0.82  29.5  32.1 Wildflower          8442.   0.82
+ 3  7.07    1.5   16.2  6.42  0.89  47.0  40.5 Wildflower          2095.   0.92
+ 4  3.93    1.47  22.2  4.09  0.79  23.9  36.8 Wildflower          4053.   0.82
+ 5  6.25    1.35  16.7  4.53  0.76  25.1  37.3 Wildflower          1822.   1   
+ 6  4.8     1.71  22.2  5.68  0.78  30.1  23.4 Wildflower          4733.   0.97
+ 7  6.58    1.54  15.4  3.45  0.7   49.3  24.5 Wildflower          7032.   1   
+ 8  7.59    1.83  23.2  2.65  0.79  26.4  32.2 Wildflower          8518.   0.66
+ 9  2.25    1.29  19.6  6.63  0.81  38.2  27.6 Wildflower          6782.   0.68
+10  3.01    1.47  16.4  4.92  0.89  31.3  25.3 Wildflower          3868.   0.84
+# ℹ 13,006 more rows
+# ℹ 1 more variable: Price &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2---data-pre-processing-eda" class="level3">
+<h3 class="anchored" data-anchor-id="step-2---data-pre-processing-eda"><strong>STEP 2 - Data Pre-processing &amp; EDA</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       CS            Density            WC              pH       
+ Min.   : 1.000   Min.   :1.210   Min.   :12.00   Min.   :2.500  
+ 1st Qu.: 3.230   1st Qu.:1.380   1st Qu.:15.29   1st Qu.:3.790  
+ Median : 5.530   Median :1.540   Median :18.49   Median :5.020  
+ Mean   : 5.492   Mean   :1.537   Mean   :18.51   Mean   :5.012  
+ 3rd Qu.: 7.680   3rd Qu.:1.700   3rd Qu.:21.76   3rd Qu.:6.250  
+ Max.   :10.000   Max.   :1.860   Max.   :25.00   Max.   :7.500  
+       EC               F               G         Pollen_analysis   
+ Min.   :0.7000   Min.   :20.00   Min.   :20.01   Length:13016      
+ 1st Qu.:0.7500   1st Qu.:27.59   1st Qu.:26.36   Class :character  
+ Median :0.8000   Median :34.93   Median :32.78   Mode  :character  
+ Mean   :0.8009   Mean   :34.95   Mean   :32.64                     
+ 3rd Qu.:0.8500   3rd Qu.:42.37   3rd Qu.:38.95                     
+ Max.   :0.9000   Max.   :50.00   Max.   :45.00                     
+   Viscosity        Purity           Price      
+ Min.   :1500   Min.   :0.6100   Min.   :196.2  
+ 1st Qu.:3631   1st Qu.:0.6600   1st Qu.:213.0  
+ Median :5800   Median :0.8200   Median :264.5  
+ Mean   :5752   Mean   :0.8263   Mean   :265.8  
+ 3rd Qu.:7876   3rd Qu.:0.9700   3rd Qu.:312.8  
+ Max.   :9999   Max.   :1.0000   Max.   :321.9  </code></pre>
+</div>
+</div>
+<p>The results above shows the summary statistics of each attributes in the dataset</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the relationship among the attributes </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(data <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>Pollen_analysis),                     <span class="at">gap =</span> <span class="dv">0</span>,                     </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pch=</span><span class="dv">21</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Supervised-Machine-Learning_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot shows the distribution of each feature and their relationship with other features. As shown, <code>purity</code> is perfectly correlated with the target feature - <code>price</code> we will exclude this attribute in our model because it distorts the regression results, making the linear regression coefficients of other features unreliable. Methods like regularization techniques (Lasso &amp; Ridge Regression) which we are not covering in the course could be used to handle such case. We could have dropped those attributes with no strong correlation with <code>Price</code> individually, but they could have a combined effect with other attributes. Hence, it’s worth keeping them for further analysis.</p>
+<p>Also, looking at the distribution of each attribute, some are skewed while some are not. Let us scale the attributes to have them on uniform scale.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Feature scaling - exclude the categorical &amp; the purity attribute </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data.sc <span class="ot">&lt;-</span> <span class="fu">scale</span>(data <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Purity, Pollen_analysis)),   <span class="at">center =</span> <span class="cn">TRUE</span>,                             <span class="at">scale =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span>                   </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">as.data.frame</span>()  </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data.sc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          CS     Density         WC         pH         EC          F
+1 -0.9657555 -0.03848956 -1.3201939  1.2898170 -1.3935623  0.8803455
+2  1.2781196  0.33323622 -1.0784491 -1.3273507  0.3293297 -0.6370040
+3  0.6115453 -0.19780061 -0.6137620  0.9827360  1.5353541  1.3993163
+4 -0.6053403 -0.35711166  0.9790673 -0.6433975 -0.1875379 -1.2874629
+5  0.2937599 -0.99435587 -0.4982618 -0.3363165 -0.7044055 -1.1501568
+6 -0.2681778  0.91737674  0.9951836  0.4662816 -0.3598271 -0.5671873
+            G  Viscosity      Price
+1 -0.50946018 -1.2527065 -1.1746670
+2 -0.06941726  1.0950833 -0.0289733
+3  1.08241924 -1.4889857  0.6729392
+4  0.57478351 -0.6918303 -0.0289733
+5  0.64513520 -1.6001065  1.2458972
+6 -1.27505210 -0.4149892  1.0095548</code></pre>
+</div>
+</div>
+</section>
+<section id="step-3---data-partition-into-training-testing-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="step-3---data-partition-into-training-testing-datasets"><strong>STEP 3 - Data partition into training &amp; testing datasets</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's partition the dataset to training &amp; testing datasets using the 70 - 30 split ratio </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>), <span class="fu">nrow</span>(data.sc),                <span class="at">replace =</span> <span class="cn">TRUE</span>,                <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>training <span class="ot">&lt;-</span> data.sc[ind<span class="sc">==</span><span class="cn">TRUE</span>,]  </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>testing <span class="ot">&lt;-</span> data.sc[ind<span class="sc">==</span><span class="cn">FALSE</span>,]  </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross check the dimension of the two datasets </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(training) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9132    9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(testing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3884    9</code></pre>
+</div>
+</div>
+</section>
+<section id="step-4---build-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="step-4---build-the-model"><strong>STEP 4 - Build the Model</strong></h3>
+<ul>
+<li>To build a simple linear regression model, let us consider the <code>pH</code> attribute of the dataset given that it has the highest correlation coefficient with the target feature.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple Linear Regression </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model.s <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> pH, <span class="at">data=</span>training) </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model.s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ pH, data = training)
+
+Coefficients:
+(Intercept)           pH  
+   -0.00519     -0.22816  </code></pre>
+</div>
+</div>
+<p>Before making use of the model for prediction, we need to assess the significance of the model using the function <code>summary()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Summary </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ pH, data = training)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.9403 -0.9352 -0.1515  1.0167  1.6457 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.00519    0.01017  -0.511     0.61    
+pH          -0.22816    0.01012 -22.538   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9713 on 9130 degrees of freedom
+Multiple R-squared:  0.0527,    Adjusted R-squared:  0.0526 
+F-statistic:   508 on 1 and 9130 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The regression coefficient of <code>pH</code> in the model is -0.228, which imply that a unit increase in the <code>pH</code> level of honey will lead to a significant reduction in the average price of honey by 0.228. The R-squared result showed that about 5% of the variability in the price of honey can be explained by the <code>pH</code> of the honey. Also, the residual standard error is 0.972 which implies that the observed price deviate from the predicted value approximately by 0.972 unit on average using <code>pH</code> attribute alone.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Diagnostics </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model.s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Supervised-Machine-Learning_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step-5---model-performance-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="step-5---model-performance-evaluation"><strong>STEP 5 - Model Performance Evaluation</strong></h3>
+<p>Let take a look at the Q-Q Residuals &amp; Residual vs Fitted plots, as we can see the data points are not distributed randomly and they do not to align with the diagonal line which imply that the model do not fit the data well. This step is an important step as it helps evaluate how well the model will generalize to an independent dataset. Common metrics used to evaluate regression model performance are <strong>R-squared (R2)</strong>, <strong>Root Mean Squared Error (RMSE)</strong>, and <strong>Mean Absolute Error (MAE)</strong>. These metrics can simply be estimated using the testing dataset or re-sample the data multiple time before computing the metrics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cross Validation Method 1 </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pred.s <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.s, testing) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>( <span class="at">R2 =</span> <span class="fu">R2</span>(pred.s, testing<span class="sc">$</span>Price ),          <span class="at">RMSE =</span> <span class="fu">RMSE</span>(pred.s, testing<span class="sc">$</span>Price ),             </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">MAE =</span> <span class="fu">MAE</span>(pred.s, testing<span class="sc">$</span>Price ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          R2      RMSE       MAE
+1 0.05592245 0.9766103 0.8717283</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross Validation Method 2 - define training control</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">17</span>) </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>train.cv <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>,                           <span class="at">number =</span> <span class="dv">10</span>, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="do">##number of resampling iteration (we do more than 10 in production)                         </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="at">repeats =</span> <span class="dv">5</span>)  <span class="do">##number of repeated k-fold CV to compute                           </span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model </span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>model.cv.s <span class="ot">&lt;-</span> <span class="fu">train</span>(Price <span class="sc">~</span> pH,                    </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dat=</span>training,   <span class="at">method =</span> <span class="st">"lm"</span>,                  <span class="at">trControl =</span> train.cv)  </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># To get more options names(getModelInfo()) </span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Make prediction and compute the R2, RMSE and MAE </span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>pred.cv.s <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.cv.s, testing)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>( <span class="at">R2 =</span> <span class="fu">R2</span>(pred.cv.s, testing<span class="sc">$</span>Price ),             <span class="at">RMSE =</span> <span class="fu">RMSE</span>(pred.cv.s, testing<span class="sc">$</span>Price ),             <span class="at">MAE =</span> <span class="fu">MAE</span>(pred.cv.s, testing<span class="sc">$</span>Price ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          R2      RMSE       MAE
+1 0.05592245 0.9766103 0.8717283</code></pre>
+</div>
+</div>
+<p>The correlation between the observed value of the honey price and the predicted value is 5.8% (NB: the higher the better) which is an indication that the model poorly fit the data. Similarly, the same conclusion can be made considering the higher values of the model’s RMSE &amp; MAE (NB: lower values are better). This implies that the attribute <code>pH</code> alone does not capture the variability in the <code>Price</code> of honey in the dataset. Therefore, let’s consider fitting multiple linear regression.</p>
+</section>
+</section>
+<section id="classification-used-case" class="level2">
+<h2 class="anchored" data-anchor-id="classification-used-case"><span style="color: #2C6D26;"><strong>Classification Used Case</strong></span></h2>
+<p>The <code>agricolae</code> package in R is primarily designed for agricultural research, providing tools for design, analysis, and multivariate analysis. However, it does not directly focus on classification in the traditional supervised machine learning sense (like you would find in packages such as <code>caret</code>, <code>randomForest</code>, or <code>e1071</code>).</p>
+<p>Nevertheless, you can use R to perform classification with some basic functions. I can provide you a sample workflow for performing classification using a dataset typically found in agriculture. Here’s a basic example using the <code>iris</code> dataset (which is not from <code>agricolae</code>, but it is a commonly used dataset for demonstrating classification).</p>
+<section id="step-1---data-import-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1---data-import-1"><strong>STEP 1 - Data Import</strong></h3>
+<p>First, make sure to install the required packages (if you haven’t already):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"agricolae"</span>, <span class="at">repos =</span> <span class="st">"https://cran.r-project.org/"</span>) </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"caret"</span>) </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"randomForest"</span>, <span class="at">repos =</span> <span class="st">"https://cran.r-project.org/"</span>)  </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries </span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(agricolae) </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret) <span class="co"># For easy data splitting and model training </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Load and Inspect the Dataset</strong></p>
+<p>Load the <code>iris</code> dataset from the <code>agricolae</code> package and inspect its structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the iris dataset </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)  </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the dataset   </span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2---data-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="step-2---data-preprocessing"><strong>Step 2 - Data Preprocessing</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the structure of the dataset </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50  
+                
+                
+                </code></pre>
+</div>
+</div>
+</section>
+<section id="step-3---data-partition-into-training-and-testing-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="step-3---data-partition-into-training-and-testing-datasets"><strong>Step 3 - Data partition into training and testing datasets</strong></h3>
+<p>Split the dataset into training (70%) and testing (30%)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(iris<span class="sc">$</span>Species, <span class="at">p =</span> .<span class="dv">7</span>,                                    <span class="at">list =</span> <span class="cn">FALSE</span>,                                    <span class="at">times =</span> <span class="dv">1</span>) </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>irisTrain <span class="ot">&lt;-</span> iris[trainIndex, ] </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>irisTest <span class="ot">&lt;-</span> iris[<span class="sc">-</span>trainIndex, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-4---build-the-model-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-4---build-the-model-1"><strong>Step 4 - Build the model</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a classification model using Random Forest </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">&lt;-</span> <span class="fu">train</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> irisTrain, <span class="at">method =</span> <span class="st">"rf"</span>)  </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model summary </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model_rf) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random Forest 
+
+105 samples
+  4 predictor
+  3 classes: 'setosa', 'versicolor', 'virginica' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 105, 105, 105, 105, 105, 105, ... 
+Resampling results across tuning parameters:
+
+  mtry  Accuracy   Kappa    
+  2     0.9488042  0.9221447
+  3     0.9468995  0.9192369
+  4     0.9427645  0.9129347
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was mtry = 2.</code></pre>
+</div>
+</div>
+<p><strong>Results Across Tuning Parameters:</strong></p>
+<p><strong>mtry:</strong> In Random Forest, ‘mtry’ refers to the number of features randomly selected at each split in the decision trees. The results presented include three values for mtry (2, 3, and 4).</p>
+<p>For mtry = 2, the model achieved the highest accuracy of 0.9488 and a Kappa statistic of 0.9221.</p>
+<p>For mtry = 3, the accuracy was slightly lower at 0.9469, with a Kappa of 0.9192.</p>
+<p>For mtry = 4, the accuracy dropped to 0.9427, with a Kappa of 0.9129.</p>
+<p>Optimal mtry Selected: The model selected for final use is mtry = 2, which had the highest accuracy. This indicates that selecting two features for each decision tree split was the most effective in classifying the Iris species in this scenario. Interpretation of Performance Metrics:</p>
+<p><strong>Accuracy:</strong> An accuracy of around 94.9% suggests that the model correctly classifies about 94.9% of the instances in a typical scenario. This is quite high, especially for a classification problem with three classes.</p>
+<p><strong>Kappa Statistic:</strong> The Kappa statistic is a measure of agreement between the predicted and observed classifications. A Kappa value above 0.9 (as seen here) indicates almost perfect agreement, suggesting that the model’s predictions are very reliable. Conclusion and Further Considerations: Given the high accuracy and Kappa scores, the Random Forest model seems to perform exceptionally well on this dataset.</p>
+</section>
+<section id="step-5---evaluate-model-parameter" class="level3">
+<h3 class="anchored" data-anchor-id="step-5---evaluate-model-parameter"><strong>Step 5 - Evaluate Model Parameter</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rf, irisTest)  </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix to evaluate the model </span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>confusion_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(irisTest<span class="sc">$</span>Species, predictions)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(confusion_matrix)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            predictions
+             setosa versicolor virginica
+  setosa         15          0         0
+  versicolor      0         14         1
+  virginica       0          2        13</code></pre>
+</div>
+</div>
+<p><strong>Accuracy calculation</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy   </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(confusion_matrix)) <span class="sc">/</span> <span class="fu">sum</span>(confusion_matrix)  </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Accuracy:"</span>, <span class="fu">round</span>(accuracy, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Accuracy: 0.9333"</code></pre>
+</div>
+</div>
+<p><strong>Feature Checking</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of fitting a random forest model library(randomForest) </span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)  </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the class of the model object </span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(rf_model) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="explanation" class="level3">
+<h3 class="anchored" data-anchor-id="explanation">Explanation:</h3>
+<ol type="1">
+<li><p><strong>Loading Libraries</strong>: We load the <code>agricolae</code> (for agricultural data analysis) and <code>caret</code> (for classification and other machine learning tasks) libraries.</p></li>
+<li><p><strong>Dataset</strong>: We use <code>iris</code>, a built-in dataset in R which contains information about different species of iris flowers based on sepal and petal dimensions.</p></li>
+<li><p><strong>Data Splitting</strong>: The dataset is split into training and test sets to evaluate the performance of our model.</p></li>
+<li><p><strong>Model Training</strong>: We train a Random Forest classifier on the training dataset. The <code>Species</code> column is our target variable, and the rest are features.</p></li>
+<li><p><strong>Predictions</strong>: We use our trained model to make predictions on the test dataset.</p></li>
+<li><p><strong>Confusion Matrix</strong>: Finally, we evaluate our model’s performance using a confusion matrix, which shows how many instances were correctly predicted by the model.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

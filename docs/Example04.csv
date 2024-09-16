@@ -1,0 +1,102 @@
+Group,Age,Sex,Marital_status,Education,Occupation,Religion,Health_Insurance,Music,Pre_Pulse,Pre_Systolic,Pre_Diastolic,Pre_RR,Post_Pulse,Post_Systolic,Post_Diastolic,Post_RR
+Group2,27,Female,Single,Secondary,Self-Employed,Islam,No,Religious,83,133,91,24,87,133,96,22
+Group2,39,Female,Married,Primary,Self-Employed,Christianity,No,Secular,80,110,70,24,114,117,71,19
+Group1,41,Male,Married,Secondary,Self-Employed,Christianity,No,Religious,74,127,94,22,87,137,99,22
+Group2,42,Male,Married,Secondary,Self-Employed,Islam,No,Religious,95,129,90,23,88,126,84,22
+Group2,42,Male,Married,Secondary,Self-Employed,Islam,No,Religious,95,129,90,23,88,126,84,22
+Group1,46,Male,Married,Secondary,Civil Servant,Christianity,yes,Religious,91,176,113,22,82,174,116,20
+Group2,48,Female,Married,Tertiary,Civil Servant,Christianity,No,Religious,70,138,96,20,78,141,103,18
+Group2,50,Female,Married,Primary,Self-Employed,Islam,No,Secular,69,143,91,24,74,143,88,20
+Group1,50,Male,Married,Tertiary,Civil Servant,Islam,yes,Secular,67,107,74,24,85,150,88,22
+Group1,50,Male,Married,Tertiary,Self-Employed,Islam,No,Secular,85,158,105,20,86,152,104,22
+Group1,50,Male,Married,Tertiary,Self-Employed,Islam,No,Secular,85,158,105,20,86,152,104,22
+Group2,50,Male,Separated,No Formal education,Self-Employed,Islam,No,Secular,76,162,95,24,85,172,104,21
+Group2,50,Female,Widowed,Primary,Self-Employed,Islam,No,Religious,100,169,103,24,91,180,104,22
+Group1,50,Male,Married,Secondary,Civil Servant,Islam,No,Religious,77,130,79,20,80,137,82,23
+Group2,51,Female,Married,Tertiary,Civil Servant,Christianity,yes,Secular,66,113,75,24,91,134,87,24
+Group1,52,Female,Married,Secondary,Self-Employed,Christianity,No,Religious,100,144,99,20,97,138,93,21
+Group2,54,Female,Married,Tertiary,Civil Servant,Christianity,yes,Secular,76,149,92,20,90,120,82,20
+Group2,54,Female,Married,Primary,Self-Employed,Islam,No,Religious,71,158,105,24,65,159,106,23
+Group1,56,Female,Married,Tertiary,Retired,Christianity,yes,Secular,84,131,83,21,83,135,91,22
+Group2,56,Female,Married,Primary,Self-Employed,Islam,No,Secular,78,119,88,22,80,136,91,20
+Group2,56,Female,Married,Tertiary,Civil Servant,Christianity,No,Religious,87,111,88,24,81,109,76,22
+Group1,56,Male,Married,No Formal education,Self-Employed,Islam,No,Religious,105,153,92,24,95,134,88,21
+Group1,56,Male,Married,Primary,Self-Employed,Christianity,No,Religious,86,143,98,24,83,125,89,20
+Group2,57,Male,Married,Tertiary,Civil Servant,Christianity,yes,Secular,97,171,109,22,86,180,117,20
+Group2,59,Male,Married,Tertiary,Civil Servant,Islam,yes,Religious,86,141,90,22,78,127,78,20
+Group1,60,Female,Married,Primary,Self-Employed,Christianity,No,Secular,76,130,90,18,85,128,77,20
+Group1,60,Female,Married,No Formal education,Self-Employed,Islam,No,Secular,74,116,78,20,79,123,81,20
+Group2,60,Female,Married,No Formal education,Self-Employed,Islam,No,Secular,69,132,76,18,69,146,83,21
+Group2,60,Male,Married,No Formal education,Unemployed,Islam,No,Secular,84,172,82,23,73,176,87,20
+Group2,60,Male,Widowed,No Formal education,Unemployed,Islam,No,Secular,73,156,88,22,69,154,82,20
+Group1,60,Female,Widowed,No Formal education,Self-Employed,Islam,No,Religious,95,143,91,23,91,149,82,23
+Group1,60,Female,Married,Secondary,Self-Employed,Islam,No,Religious,64,107,81,24,78,128,85,19
+Group1,60,Male,Single,Secondary,Civil Servant,Islam,No,Religious,79,157,77,28,74,146,76,23
+Group1,60,Male,Married,No Formal education,Self-Employed,Christianity,No,Religious,66,128,79,20,61,132,83,22
+Group1,60,Male,Widowed,No Formal education,Self-Employed,Islam,No,Any music,93,166,106,28,89,104,84,28
+Group1,60,Male,Married,No Formal education,Self-Employed,Islam,No,Any music,80,152,79,24,87,155,89,22
+Group1,61,Female,Married,Primary,Self-Employed,Christianity,No,Religious,102,121,90,20,107,137,93,20
+Group1,61,Female,Divorced,No Formal education,Self-Employed,Islam,No,Religious,77,136,86,22,55,122,86,22
+Group1,61,Female,Married,Primary,Self-Employed,Christianity,No,Any music,35,148,81,21,60,130,70,24
+Group1,62,Female,Married,Primary,Self-Employed,Islam,No,Religious,80,145,106,23,85,147,109,25
+Group1,62,Female,Married,Primary,Self-Employed,Christianity,No,Religious,78,182,107,20,98,177,96,20
+Group2,62,Female,Married,Secondary,Self-Employed,Christianity,No,Religious,65,124,88,24,57,133,87,20
+Group2,62,Male,Married,Primary,Self-Employed,Islam,No,Any music,78,180,111,15,76,156,96,16
+Group1,63,Male,Widowed,No Formal education,Self-Employed,Islam,No,Secular,121,174,92,21,96,145,79,22
+Group1,63,Female,Widowed,Secondary,Retired,Christianity,No,Religious,94,103,69,24,98,128,72,24
+Group1,64,Male,Married,Tertiary,Civil Servant,Christianity,yes,Secular,70,122,78,17,63,128,79,17
+Group1,64,Male,Married,Tertiary,Civil Servant,Christianity,No,Secular,54,156,83,19,61,167,82,20
+Group1,64,Female,Married,Primary,Self-Employed,Islam,No,Any music,116,172,87,18,111,164,91,18
+Group2,65,Male,Married,Primary,Self-Employed,Christianity,No,Secular,61,127,78,22,66,153,89,20
+Group2,65,Female,Married,Tertiary,Retired,Christianity,No,Religious,78,126,82,20,83,152,80,20
+Group1,65,Male,Married,Tertiary,Self-Employed,Christianity,No,Religious,99,142,93,20,103,136,91,16
+Group2,65,Male,Married,Primary,Self-Employed,Christianity,No,Religious,61,127,78,22,66,153,89,20
+Group2,65,Female,Married,Secondary,Self-Employed,Islam,yes,Any music,79,128,92,25,75,136,95,24
+Group1,65,Male,Widowed,No Formal education,Self-Employed,Islam,No,Any music,89,125,80,22,106,162,88,25
+Group1,66,Male,Married,Secondary,Self-Employed,Islam,No,Secular,77,120,85,18,78,134,94,20
+Group1,66,Male,Married,Tertiary,Retired,Christianity,No,Religious,59,141,88,24,64,136,94,22
+Group1,67,Male,Married,Tertiary,Unemployed,Islam,yes,Secular,81,143,96,20,78,151,100,20
+Group2,67,Male,Married,Secondary,Self-Employed,Christianity,No,Secular,82,147,93,22,85,132,88,22
+Group2,67,Male,Married,Tertiary,Retired,Islam,yes,Secular,81,143,96,20,78,151,100,20
+Group1,67,Female,Married,Secondary,Self-Employed,Islam,No,Religious,62,142,89,23,59,153,87,23
+Group2,67,Male,Married,Secondary,Self-Employed,Christianity,No,Religious,82,147,93,22,85,132,88,22
+Group2,68,Female,Widowed,Tertiary,Self-Employed,Christianity,No,Religious,76,112,60,20,82,119,63,22
+Group2,69,Female,Widowed,Tertiary,Retired,Christianity,No,Secular,77,132,78,22,80,143,84,22
+Group2,70,Female,Married,Primary,Self-Employed,Islam,No,Secular,100,160,89,20,100,172,84,18
+Group1,70,Male,Widowed,No Formal education,Self-Employed,Islam,No,Secular,81,143,82,25,93,165,87,22
+Group1,70,Female,Married,Tertiary,Retired,Islam,yes,Religious,61,116,67,24,62,161,89,20
+Group2,70,Female,Married,Secondary,Self-Employed,Islam,No,Religious,67,137,75,20,65,127,89,20
+Group2,70,Male,Married,No Formal education,Self-Employed,Christianity,No,Religious,62,105,68,21,85,144,90,20
+Group1,72,Female,Married,Tertiary,Retired,Christianity,No,Religious,103,143,92,22,92,158,87,20
+Group1,73,Female,Widowed,Tertiary,Retired,Christianity,No,Secular,79,140,89,24,60,127,80,22
+Group1,73,Female,Widowed,No Formal education,Self-Employed,Christianity,No,Religious,92,164,102,20,83,173,96,20
+Group1,73,Female,Married,Tertiary,Self-Employed,Christianity,yes,Any music,86,141,87,20,79,135,81,20
+Group1,74,Male,Married,Secondary,Self-Employed,Islam,No,Secular,88,88,64,24,84,110,75,22
+Group1,74,Male,Married,Secondary,Self-Employed,Islam,No,Secular,88,88,64,24,84,110,75,22
+Group1,74,Female,Married,Tertiary,Retired,Christianity,No,Religious,102,181,76,22,94,157,78,20
+Group2,74,Male,Married,Secondary,Retired,Christianity,No,Religious,75,141,88,20,68,129,88,20
+Group2,75,Female,Married,Primary,Self-Employed,Islam,No,Secular,98,184,106,20,71,177,101,19
+Group2,75,Male,Widowed,No Formal education,Self-Employed,Islam,No,Secular,84,157,104,22,106,200,127,23
+Group2,75,Male,Widowed,Secondary,Civil Servant,Christianity,No,Religious,74,156,95,22,66,171,87,20
+Group2,75,Male,Widowed,Primary,Self-Employed,Christianity,No,Religious,88,135,95,25,88,142,90,22
+Group2,75,Male,Widowed,Primary,Self-Employed,Islam,No,Religious,99,155,84,25,86,149,86,23
+Group1,75,Female,Married,No Formal education,Self-Employed,Islam,No,Any music,77,121,96,16,85,136,86,20
+Group2,77,Male,Widowed,Primary,Unemployed,Christianity,No,Religious,82,120,85,24,83,130,88,24
+Group2,78,Female,Married,Secondary,Civil Servant,Islam,No,Secular,96,134,88,24,87,164,110,22
+Group2,78,Female,Married,Secondary,Unemployed,Christianity,No,Religious,99,178,99,24,89,154,104,22
+Group2,78,Female,Widowed,Primary,Self-Employed,Christianity,No,Religious,89,176,101,20,103,172,88,20
+Group1,80,Male,Married,Tertiary,Self-Employed,Christianity,yes,Secular,84,151,111,20,91,160,112,20
+Group2,80,Male,Married,No Formal education,Self-Employed,Islam,No,Secular,93,137,89,21,88,161,102,21
+Group1,80,Female,Married,No Formal education,Unemployed,Islam,No,Religious,82,141,78,22,70,158,84,20
+Group1,80,Female,Widowed,Secondary,Self-Employed,Christianity,No,Religious,90,143,82,21,98,144,60,20
+Group1,80,Female,Widowed,Secondary,Self-Employed,Islam,No,Religious,86,140,96,22,58,138,83,21
+Group2,80,Female,Married,Primary,Self-Employed,Islam,No,Religious,62,127,77,22,59,138,80,21
+Group2,80,Male,Widowed,No Formal education,Unemployed,Christianity,No,Religious,84,142,98,20,88,151,98,21
+Group2,80,Male,Widowed,No Formal education,Self-Employed,Christianity,No,Religious,92,140,75,24,102,152,77,23
+Group2,80,Male,Married,Secondary,Self-Employed,Christianity,No,Religious,80,120,92,24,91,132,89,24
+Group1,82,Female,Married,Secondary,Self-Employed,Christianity,No,Religious,85,140,66,20,87,161,73,20
+Group1,83,Female,Married,Tertiary,Civil Servant,Christianity,No,Religious,77,175,81,24,74,166,97,24
+Group2,84,Male,Married,Tertiary,Retired,Christianity,No,Religious,78,153,85,22,84,173,90,23
+Group2,87,Female,Widowed,Secondary,Civil Servant,Islam,No,Any music,97,127,75,23,97,133,75,23
+Group2,90,Male,Divorced,Secondary,Unemployed,Islam,No,Secular,73,130,76,22,91,135,80,22
+Group2,90,Male,Married,Tertiary,Retired,Christianity,No,Any music,63,148,85,24,60,148,80,22
