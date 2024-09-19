@@ -6,7 +6,7 @@ The  <a href="https://github.com/Biometrics-IITA/datasets" >dataset</a> used  fo
 
 # Training Outline
 In this training, we will cover topics such as: 
-1. Data Wrangling
+1. [Data Wrangling](https://biometrics-iita.github.io/Data-Wrangling/)
 2. Basic Analysis
 3. Linear Regression
 4. Logistic Regression
