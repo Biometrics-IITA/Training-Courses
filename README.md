@@ -10,7 +10,7 @@ In this training, we will cover topics such as:
 2. Basic Analysis
 3. [Linear Regression](https://biometrics-iita.github.io/Linear-Regression/#simple-linear-regression)
 4. [Logistic Regression](https://biometrics-iita.github.io/Logistic-Regression/)
-5. Design of Experiment
+5. [Design of Experiment](https://biometrics-iita.github.io/Design-of-Experiment/)
 6. Linear Models
 7. Multivariate Analysis
 8. Introduction to Machine Learning
