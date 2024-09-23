@@ -14,7 +14,7 @@ In this training, we will cover topics such as:
 6. Linear Models
 7. [Multivariate Analysis](https://biometrics-iita.github.io/Multivariate-Analysis/)
 8. [Introduction to Machine Learning](https://biometrics-iita.github.io/Introduction-to-Machine-Learning/)
-9. Supervised Machine Learning
+9. [Supervised Machine Learning](https://biometrics-iita.github.io/Supervised-Machine-Learning/)
 10. Unsupervised Machine Learning
 
 
