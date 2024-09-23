@@ -12,7 +12,7 @@ In this training, we will cover topics such as:
 4. [Logistic Regression](https://biometrics-iita.github.io/Logistic-Regression/)
 5. [Design of Experiment](https://biometrics-iita.github.io/Design-of-Experiment/)
 6. Linear Models
-7. Multivariate Analysis
+7. [Multivariate Analysis](https://biometrics-iita.github.io/Multivariate-Analysis/)
 8. Introduction to Machine Learning
 9. Supervised Machine Learning
 10. Unsupervised Machine Learning
